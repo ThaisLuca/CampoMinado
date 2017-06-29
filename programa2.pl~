@@ -1,0 +1,140 @@
+:- dynamic mina/2.
+:- dynamic tamanho/1.
+:- dynamic valor/3.
+inicio :- 	
+		['mina'],
+		['ambiente'].
+
+%EXERCÍCIO 2
+
+abre_casa(I,J) :- 
+								mina(I,J),
+								print('BOOOOOM!'),
+								!,
+								halt.
+abre_casa(I,J) :- 
+								valor(I,J,K),
+								swritef(Aux, 'Casa(%d,%d) = %d', [I, J, K]),
+								print(Aux),
+								not(K=0).
+
+								
+abre_casa(I,J) :- 
+								findall(X, abre_redor(I,J,X),_).
+
+
+abre_redor(I, J, left) :- 
+						J1 is J - 1,
+						I1 is I,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I,J1).
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, right) :-
+						J1 is J + 1,
+						I1 is I,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I,J1).
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, bottom) :-
+						I1 is I + 1,
+						J1 is J,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I1,J).
+
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, top) :-
+						I1 is I - 1,
+						J1 is J,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I1,J).
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, topright) :-
+						I1 is I - 1,
+						J1 is J + 1,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I1,J1).
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, bottomright) :-
+						I1 is I + 1,
+						J1 is J + 1,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I1,J1).
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, topleft) :-
+						I1 is I - 1,
+						J1 is J - 1,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I1,J1).
+abre_redor(_, _, _) :- 
+						true.
+
+
+abre_redor(I, J, bottomleft) :-
+						I1 is I + 1,
+						J1 is J - 1,
+						tamanho(TAM),
+						J1 > 0,
+						J1 =< TAM,
+						I1 =< TAM,
+						I1 > 0,
+						!,
+						abre_casa(I1,J1).
+abre_redor(_, _, _) :- 
+						true.
+
+
+
+
